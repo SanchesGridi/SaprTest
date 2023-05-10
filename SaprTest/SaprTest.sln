@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{35A5B1F5-B76B-4877-A70A-57D5D31DE7BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{85AC503C-34DB-4B0F-90D4-DCD0C6DF0A1C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaprTest", "SaprTest\SaprTest\SaprTest.csproj", "{334760CB-8D88-4DD9-91D2-5E69C9D9A9B1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaprTest.Core", "SaprTest\SaprTest.Core\SaprTest.Core.csproj", "{A60B71E0-A514-450C-8358-EA74AF4D8B9F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{334760CB-8D88-4DD9-91D2-5E69C9D9A9B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{334760CB-8D88-4DD9-91D2-5E69C9D9A9B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{334760CB-8D88-4DD9-91D2-5E69C9D9A9B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{334760CB-8D88-4DD9-91D2-5E69C9D9A9B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A60B71E0-A514-450C-8358-EA74AF4D8B9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A60B71E0-A514-450C-8358-EA74AF4D8B9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A60B71E0-A514-450C-8358-EA74AF4D8B9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A60B71E0-A514-450C-8358-EA74AF4D8B9F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D534CCE1-17B0-43AC-9C01-A8DF98A4370D}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,20 @@
+﻿<Window x:Class="SaprTest.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:vm="clr-namespace:SaprTest.ViewModels"
+        mc:Ignorable="d"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
+        Title="Sapr-Art Test"
+        WindowStartupLocation="CenterScreen"
+        Height="800"
+        Width="600" >
+    <Grid>
+        <Label HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               Content="{Binding Content}"/>
+    </Grid>
+</Window>
