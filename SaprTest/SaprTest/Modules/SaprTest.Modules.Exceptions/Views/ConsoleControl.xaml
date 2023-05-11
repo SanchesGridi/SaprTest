@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="SaprTest.Modules.Exceptions.Views.ConsoleControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:vm="clr-namespace:SaprTest.Modules.Exceptions.ViewModels"
+             xmlns:m="clr-namespace:SaprTest.Modules.Exceptions.Models"
+             mc:Ignorable="d" 
+             d:DesignWidth="785"
+             d:DesignHeight="202.5"
+             d:Background="White"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             d:DataContext="{d:DesignInstance Type=vm:ConsoleControlViewModel}">
+    <ListBox x:Name="_exceptions_console_"
+             Margin="2"
+             VirtualizingPanel.VirtualizationMode="Recycling"
+             ItemsSource="{Binding Exceptions}">
+        <ListBox.ItemTemplate>
+            <DataTemplate DataType="m:ExceptionModel">
+                <TextBlock VerticalAlignment="Center"
+                           Foreground="{Binding Brush}"
+                           Text="{Binding Message}"/>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+</UserControl>

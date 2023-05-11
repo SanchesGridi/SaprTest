@@ -5,16 +5,111 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prism="http://prismlibrary.com/"
         xmlns:vm="clr-namespace:SaprTest.ViewModels"
+        xmlns:core_utils="clr-namespace:SaprTest.Core.Utils;assembly=SaprTest.Core"
         mc:Ignorable="d"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}"
         Title="Sapr-Art Test"
         WindowStartupLocation="CenterScreen"
-        Height="800"
-        Width="600" >
+        Width="800"
+        Height="850"
+        d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}" >
     <Grid>
-        <Label HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               Content="{Binding Content}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0"
+                    TabStripPlacement="Bottom">
+            <TabItem Header="First Task">
+                <TabItem.Content>
+                    <Grid ShowGridLines="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Canvas Grid.Column="0">
+                            <Canvas.Children>
+                               <!--todo-->
+                            </Canvas.Children>
+                        </Canvas>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
+                                       Margin="2"
+                                       HorizontalAlignment="Center"
+                                       Text="Top left point"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0"
+                                       Margin="2"
+                                       HorizontalAlignment="Center"
+                                       Text="X:"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1"
+                                       Margin="2"
+                                       HorizontalAlignment="Center"
+                                       Text="Y:"/>
+                            <TextBox Grid.Row="2" Grid.Column="0"
+                                     Margin="2"
+                                     VerticalAlignment="Center"
+                                     Text="{Binding Input.TopLeftX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Row="2" Grid.Column="1"
+                                     Margin="2"
+                                     VerticalAlignment="Center"
+                                     Text="{Binding Input.TopLeftY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Grid.Row="3" Grid.Column="0"
+                                       Margin="2"
+                                       HorizontalAlignment="Center"
+                                       Text="Height:"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1"
+                                       Margin="2"
+                                       HorizontalAlignment="Center"
+                                       Text="Width:"/>
+                            <TextBox Grid.Row="4" Grid.Column="0"
+                                     Margin="2"
+                                     VerticalAlignment="Center"
+                                     Text="{Binding Input.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Row="4" Grid.Column="1"
+                                     Margin="2"
+                                     VerticalAlignment="Center"
+                                     Text="{Binding Input.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Border Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                                    Margin="2"
+                                    VerticalAlignment="Center"
+                                    BorderThickness="2.5"
+                                    CornerRadius="2.5"
+                                    BorderBrush="{Binding Input.SelectedColorBrush}">
+                                <Button Content="Color"
+                                        Command="{Binding SelectColorCommand}"/>
+                            </Border>
+                            <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                                    Margin="2"
+                                    VerticalAlignment="Center"
+                                    Content="Add rectangle"
+                                    Command="{Binding AddRectangleCommand}"/>
+                        </Grid>
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem Header="Second Task">
+                <TabItem.Content>
+                    <Grid>
+
+                    </Grid>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+        <ContentControl Grid.Row="1"
+                        prism:RegionManager.RegionName="{x:Static core_utils:RegionNames.ExceptionsRegion}"/>
     </Grid>
 </Window>

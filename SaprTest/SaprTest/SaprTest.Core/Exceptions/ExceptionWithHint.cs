@@ -1,0 +1,10 @@
+﻿using System;
+
+namespace SaprTest.Core.Exceptions;
+
+public class ExceptionWithHint : Exception
+{
+    public ExceptionWithHint(string messageHint, Exception innerException) : base(messageHint, innerException)
+    {
+    }
+}

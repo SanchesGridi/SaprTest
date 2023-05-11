@@ -8,6 +8,6 @@
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SaprTest.Core\SaprTest.Core.csproj" />
+    <ProjectReference Include="..\Modules\SaprTest.Modules.Exceptions\SaprTest.Modules.Exceptions.csproj" />
   </ItemGroup>
 </Project>
