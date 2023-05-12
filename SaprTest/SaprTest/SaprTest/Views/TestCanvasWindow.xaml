@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Width="500"
-        Height="600"
+        Height="650"
         WindowStartupLocation="CenterScreen"
         Title="Canvas Window"
         d:DataContext="{d:DesignInstance Type=vm:TestCanvasWindowViewModel}">
@@ -42,9 +42,10 @@
                         </PathGeometry>
                     </Path.Data>
                 </Path>
-                <Path x:Name="_rectangle_"
+                
+                <Path x:Name="_path_rectangle_static_"
                       Canvas.ZIndex="1"
-                      Fill="LightPink" Stroke="Black" Opacity="0.5" Visibility="Hidden">
+                      Fill="Orange" Stroke="Black" Opacity="0.35">
                     <Path.Data>
                         <PathGeometry>
                             <PathFigure IsClosed="True" StartPoint="100,100">
@@ -55,20 +56,37 @@
                         </PathGeometry>
                     </Path.Data>
                 </Path>
+                
+                <!--
+                <Polygon x:Name="_polygon_rectangle_static_"
+                         Canvas.ZIndex="1"
+                         Fill="Orange" Stroke="Black" Opacity="0.5"
+                         Points="100, 100, 100, 135, 300, 135, 300, 100"/>
+                -->
             </Canvas.Children>
         </Canvas>
         <StackPanel Grid.Row="1"
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
+            <!--
             <Button Margin="5"
                     Content="Switch Rectangle"
                     Command="{Binding SwitchRectangleCommand}"/>
+            -->
+            <Button Margin="5"
+                    Foreground="Firebrick"
+                    Content="Show Rectangle Points"
+                    Command="{Binding ShowRectanglePointsCommand}"/>
+            <Button Margin="5"
+                    Foreground="Firebrick"
+                    Content="Show Rectangle Area"
+                    Command="{Binding ShowRectangleAreaCommand}"/>
             <Button Margin="5"
                     Content="Add Path Rectangle"
                     Command="{Binding AddPathRectangleCommand}"/>
             <Button Margin="5"
-                    Content="Add Native Rectangle"
-                    Command="{Binding AddNativeRectangleCommand}"/>
+                    Content="Add Polygon Rectangle"
+                    Command="{Binding AddPolygonRectangleCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

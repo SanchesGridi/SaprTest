@@ -26,26 +26,63 @@ public sealed class ViewHelper
         console.ScrollIntoView(lastChild);
     }
 
-    public void AddPathRectangle(DependencyObject window, string canvasName, CustomRectangle rectangle)
+    public void AddPolygonRectangle(DependencyObject window, string canvasName, CustomRectangle rectangle)
     {
         var canvas = _viewProvider.GetView<Canvas>(window, canvasName);
-        var path = CreatePath(rectangle);
-        canvas.Children.Add(path);
-#if DEBUG
-        System.Diagnostics.Debug.WriteLine($"Rectangle area: [{path.Data.GetArea()}]");
-#endif
+        var polygon = CreatePolygon(rectangle);
+        canvas.Children.Add(polygon);
     }
 
-    public void AddNativeRectangle(DependencyObject window, string canvasName, CustomRectangle rectangle)
+    public void AddPathRectangle(DependencyObject window, string canvasName, CustomRectangle rectangle, string mode)
     {
+        var canvas = _viewProvider.GetView<Canvas>(window, canvasName);
+        var path = null as Path;
+        if (mode == "line_segments")
+        {
+            path = CreatePath(rectangle);
+        }
+        else if (mode == "rectangle_geometry")
+        {
+            path = new Path
+            {
+                Name = $"_path_rectangle_{rectangle.Id}_",
+                Fill = new SolidColorBrush(rectangle.Color),
+                Stroke = Brushes.Black,
+                Data = new RectangleGeometry
+                {
+                    Rect = new Rect
+                    {
+                        Location = new Point(rectangle.TopLeft.X, rectangle.TopLeft.Y),
+                        Size = new Size(rectangle.Width, rectangle.Height)
+                    }
+                }
+            };
+        }
+        canvas.Children.Add(path);
+    }
 
+    private static Polygon CreatePolygon(CustomRectangle rectangle)
+    {
+        return new Polygon
+        {
+            Name = $"_polygon_rectangle_{rectangle.Id}_",
+            Fill = new SolidColorBrush(rectangle.Color),
+            Stroke = Brushes.Black,
+            Points =
+            {
+                new Point(rectangle.TopLeft.X, rectangle.TopLeft.Y),
+                new Point(rectangle.BottomLeft.X, rectangle.BottomLeft.Y),
+                new Point(rectangle.BottomRight.X, rectangle.BottomRight.Y),
+                new Point(rectangle.TopRight.X, rectangle.TopRight.Y)
+            }
+        };
     }
 
     private static Path CreatePath(CustomRectangle rectangle)
     {
         return new Path
         {
-            Name = $"_rectangle_{rectangle.Id}_",
+            Name = $"_path_rectangle_{rectangle.Id}_",
             Fill = new SolidColorBrush(rectangle.Color),
             Stroke = Brushes.Black,
             Data = new PathGeometry(new[]

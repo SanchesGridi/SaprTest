@@ -44,18 +44,23 @@ public sealed class Rectangle : BindableBase
     }
 
     public int Id => _id;
+    public double Height { get; }
+    public double Width { get; }
 
-    public Rectangle(Point topLeft, Point bottomLeft, Point bottomRight, Point topRight, Color color, int id)
+    public Rectangle(int id, double topLeftX, double topLeftY, double height, double width, Color color)
     {
-        _id = id;
+        _id = id; // remove
 
-        TopLeft = topLeft;
-        BottomLeft = bottomLeft;
-        BottomRight = bottomRight;
-        TopRight = topRight;
+        TopLeft = new Point(topLeftX, topLeftY);
+        BottomLeft = new Point(TopLeft.X, TopLeft.Y + height);
+        BottomRight = new Point(BottomLeft.X + width, BottomLeft.Y);
+        TopRight = new Point(BottomRight.X, BottomRight.Y - height);
+
         Color = color;
+        Height = height;
+        Width = width;
 
-        ValidateRectangle();
+        ValidateRectangle(); // remove
     }
 
     private void ValidateRectangle()
@@ -68,5 +73,6 @@ public sealed class Rectangle : BindableBase
         {
             throw new Exception("The current shape instance is not a rectangle.");
         }
+        // todo: degrees == 90
     }
 }

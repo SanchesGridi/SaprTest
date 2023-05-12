@@ -20,7 +20,7 @@ public class MainWindowViewModel : ViewModelBase
     private InputData _input;
     public InputData Input
     {
-        get => _input;
+        get => _input ??= new();
         set => SetProperty(ref _input, value);
     }
 
@@ -49,8 +49,8 @@ public class MainWindowViewModel : ViewModelBase
     {
         try
         {
-            // need implementation
-            _viewHelper.AddNativeRectangle(_application.MainWindow, ViewNames.RectanglesCanvas, CreateRectangle());
+            var rectangle = CreateRectangle();
+            _viewHelper.AddPolygonRectangle(_application.MainWindow, ViewNames.RectanglesCanvas, rectangle);
         }
         catch (Exception ex)
         {
@@ -60,24 +60,14 @@ public class MainWindowViewModel : ViewModelBase
 
     private Rectangle CreateRectangle()
     {
+        var id = RectangleIds.NewPolygonId();
         var topLeftX = ToDouble(Input.TopLeftX, "Top Left X param");
         var topLeftY = ToDouble(Input.TopLeftY, "Top Left Y param");
         var height = ToDouble(Input.Height, "Height");
         var width = ToDouble(Input.Width, "Width");
+        var color = Input.SelectedColorBrush.Color;
 
-        var topLeftPoint = new Point(topLeftX, topLeftY);
-        var bottomLeftPoint = new Point(topLeftPoint.X, topLeftPoint.Y + height);
-        var bottomRightPoint = new Point(bottomLeftPoint.X + width, bottomLeftPoint.Y);
-        var topRightPoint = new Point(bottomRightPoint.X, bottomRightPoint.Y - height);
-
-        return new Rectangle(
-            topLeftPoint,
-            bottomLeftPoint,
-            bottomRightPoint,
-            topRightPoint,
-            Input.SelectedColorBrush.Color,
-            RectangleIds.GetNew()
-        );
+        return new Rectangle(id, topLeftX, topLeftY, height, width, color);
     }
 
     private static double ToDouble(string input, string inputName)
