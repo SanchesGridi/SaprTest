@@ -14,14 +14,12 @@ public partial class App
 {
     protected override Window CreateShell()
     {
-        // return Container.Resolve<MainWindow>();
-        return Container.Resolve<TestCanvasWindow>();
+        return Container.Resolve<MainWindow>();
     }
 
     protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
         containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
-        containerRegistry.RegisterForNavigation<TestCanvasWindow, TestCanvasWindowViewModel>();
 
         containerRegistry.RegisterSingleton<ISolidColorBrushDialog, SolidColorBrushDialog>();
         containerRegistry.RegisterSingleton<IViewProvider, ViewProvider>();

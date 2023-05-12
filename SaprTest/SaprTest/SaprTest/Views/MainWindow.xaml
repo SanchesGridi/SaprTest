@@ -27,7 +27,8 @@
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Canvas Grid.Column="0">
+                        <Canvas Grid.Column="0"
+                                x:Name="_rectangles_canvas_">
                             <Canvas.Children>
                                <!--todo-->
                             </Canvas.Children>

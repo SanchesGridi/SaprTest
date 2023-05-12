@@ -5,11 +5,10 @@ using SaprTest.Core.Exceptions;
 using SaprTest.Core.Mvvm.ViewModels;
 using SaprTest.Core.Services.Interfaces;
 using SaprTest.Core.Services.SelfImplemented;
-using SaprTest.Core.Mvvm.Models;
+using SaprTest.Core.Utils;
+using SaprTest.Models;
 using System;
 using System.Windows.Media;
-using SaprTest.Models;
-using SaprTest.Core.Utils;
 
 namespace SaprTest.ViewModels;
 
@@ -49,25 +48,22 @@ public class MainWindowViewModel : ViewModelBase
     {
         try
         {
-            var rectangle = CreateRectangle();
-            _viewHelper.AddPolygonRectangle(_application.MainWindow, ViewNames.RectanglesCanvas, rectangle);
+            var topLeftX = ToDouble(Input.TopLeftX, "Top Left X param");
+            var topLeftY = ToDouble(Input.TopLeftY, "Top Left Y param");
+            var width = ToDouble(Input.Width, "Width");
+            var height = ToDouble(Input.Height, "Height");
+            var color = Input.SelectedColorBrush.Color;
+
+            _viewHelper.AddRectangle(
+                _application.MainWindow,
+                ViewNames.RectanglesCanvas,
+                (topLeftX, topLeftY, width, height, color)
+            );
         }
         catch (Exception ex)
         {
             _eventAggregator.GetEvent<ExceptionEvent>().Publish(ex);
         }
-    }
-
-    private Rectangle CreateRectangle()
-    {
-        var id = RectangleIds.NewPolygonId();
-        var topLeftX = ToDouble(Input.TopLeftX, "Top Left X param");
-        var topLeftY = ToDouble(Input.TopLeftY, "Top Left Y param");
-        var height = ToDouble(Input.Height, "Height");
-        var width = ToDouble(Input.Width, "Width");
-        var color = Input.SelectedColorBrush.Color;
-
-        return new Rectangle(id, topLeftX, topLeftY, height, width, color);
     }
 
     private static double ToDouble(string input, string inputName)

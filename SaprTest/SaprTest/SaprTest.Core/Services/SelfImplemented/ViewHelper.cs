@@ -3,8 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using CustomPoint = SaprTest.Core.Mvvm.Models.Point;
-using CustomRectangle = SaprTest.Core.Mvvm.Models.Rectangle;
 
 namespace SaprTest.Core.Services.SelfImplemented;
 
@@ -26,84 +24,23 @@ public sealed class ViewHelper
         console.ScrollIntoView(lastChild);
     }
 
-    public void AddPolygonRectangle(DependencyObject window, string canvasName, CustomRectangle rectangle)
+    public void AddRectangle(DependencyObject window, string canvasName,
+        (double X, double Y, double Width, double Height, Color Color) settings)
     {
         var canvas = _viewProvider.GetView<Canvas>(window, canvasName);
-        var polygon = CreatePolygon(rectangle);
-        canvas.Children.Add(polygon);
-    }
-
-    public void AddPathRectangle(DependencyObject window, string canvasName, CustomRectangle rectangle, string mode)
-    {
-        var canvas = _viewProvider.GetView<Canvas>(window, canvasName);
-        var path = null as Path;
-        if (mode == "line_segments")
+        var path = new Path
         {
-            path = CreatePath(rectangle);
-        }
-        else if (mode == "rectangle_geometry")
-        {
-            path = new Path
-            {
-                Name = $"_path_rectangle_{rectangle.Id}_",
-                Fill = new SolidColorBrush(rectangle.Color),
-                Stroke = Brushes.Black,
-                Data = new RectangleGeometry
-                {
-                    Rect = new Rect
-                    {
-                        Location = new Point(rectangle.TopLeft.X, rectangle.TopLeft.Y),
-                        Size = new Size(rectangle.Width, rectangle.Height)
-                    }
-                }
-            };
-        }
-        canvas.Children.Add(path);
-    }
-
-    private static Polygon CreatePolygon(CustomRectangle rectangle)
-    {
-        return new Polygon
-        {
-            Name = $"_polygon_rectangle_{rectangle.Id}_",
-            Fill = new SolidColorBrush(rectangle.Color),
+            Fill = new SolidColorBrush(settings.Color),
             Stroke = Brushes.Black,
-            Points =
+            Data = new RectangleGeometry
             {
-                new Point(rectangle.TopLeft.X, rectangle.TopLeft.Y),
-                new Point(rectangle.BottomLeft.X, rectangle.BottomLeft.Y),
-                new Point(rectangle.BottomRight.X, rectangle.BottomRight.Y),
-                new Point(rectangle.TopRight.X, rectangle.TopRight.Y)
+                Rect = new Rect
+                {
+                    Location = new Point(settings.X, settings.Y),
+                    Size = new Size(settings.Width, settings.Height)
+                }
             }
         };
-    }
-
-    private static Path CreatePath(CustomRectangle rectangle)
-    {
-        return new Path
-        {
-            Name = $"_path_rectangle_{rectangle.Id}_",
-            Fill = new SolidColorBrush(rectangle.Color),
-            Stroke = Brushes.Black,
-            Data = new PathGeometry(new[]
-            {
-                new PathFigure(
-                    start: new Point(rectangle.TopLeft.X, rectangle.TopLeft.Y),
-                    segments: CreateSegments(new[] { rectangle.BottomLeft, rectangle.BottomRight, rectangle.TopRight }),
-                    closed: true
-                )
-            })
-        };
-    }
-
-    private static PathSegment[] CreateSegments(CustomPoint[] points)
-    {
-        var segments = new LineSegment[points.Length];
-        for (var index = 0; index < points.Length; index++)
-        {
-            var point = new Point(points[index].X, points[index].Y);
-            segments[index] = new LineSegment { Point = point };
-        }
-        return segments;
+        canvas.Children.Add(path);
     }
 }
