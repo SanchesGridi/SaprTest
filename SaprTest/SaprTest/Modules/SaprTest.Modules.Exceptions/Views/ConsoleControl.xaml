@@ -14,10 +14,11 @@
              d:DataContext="{d:DesignInstance Type=vm:ConsoleControlViewModel}">
     <ListBox x:Name="_exceptions_console_"
              Margin="2"
+             VirtualizingPanel.ScrollUnit="Pixel"
              VirtualizingPanel.VirtualizationMode="Recycling"
              ItemsSource="{Binding Exceptions}">
         <ListBox.ItemTemplate>
-            <DataTemplate DataType="m:ExceptionModel">
+            <DataTemplate DataType="m:EntryModel">
                 <TextBlock VerticalAlignment="Center"
                            Foreground="{Binding Brush}"
                            Text="{Binding Message}"/>

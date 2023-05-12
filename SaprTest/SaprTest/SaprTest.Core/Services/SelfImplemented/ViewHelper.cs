@@ -1,4 +1,5 @@
-﻿using SaprTest.Core.Services.Interfaces;
+﻿using Prism.Events;
+using SaprTest.Core.Services.Interfaces;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -24,24 +25,24 @@ public sealed class ViewHelper
         console.ScrollIntoView(lastChild);
     }
 
-    public void AddRectangle(DependencyObject window, string canvasName,
+    public Rect AddRectangle(DependencyObject window, string canvasName,
         (double X, double Y, double Width, double Height, Color Color) settings)
     {
         var canvas = _viewProvider.GetView<Canvas>(window, canvasName);
+        var rectangle = new Rect
+        {
+            Location = new Point(settings.X, settings.Y),
+            Size = new Size(settings.Width, settings.Height)
+        };
         var path = new Path
         {
             Fill = new SolidColorBrush(settings.Color),
             Stroke = Brushes.Black,
-            Data = new RectangleGeometry
-            {
-                Rect = new Rect
-                {
-                    Location = new Point(settings.X, settings.Y),
-                    Size = new Size(settings.Width, settings.Height)
-                }
-            }
+            Data = new RectangleGeometry(rectangle)
         };
         canvas.Children.Add(path);
+
+        return rectangle;
     }
 
     public void ClearCanvas(DependencyObject window, string canvasName)

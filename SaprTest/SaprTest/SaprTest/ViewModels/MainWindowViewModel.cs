@@ -8,6 +8,7 @@ using SaprTest.Core.Services.SelfImplemented;
 using SaprTest.Core.Utils;
 using SaprTest.Models;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows.Media;
 
 namespace SaprTest.ViewModels;
@@ -21,6 +22,13 @@ public class MainWindowViewModel : ViewModelBase
     {
         get => _input ??= new();
         set => SetProperty(ref _input, value);
+    }
+
+    private ObservableCollection<OutputData> _outputs;
+    public ObservableCollection<OutputData> Outputs
+    {
+        get => _outputs ??= new();
+        set => SetProperty(ref _outputs, value);
     }
 
     public DelegateCommand SelectColorCommand { get; }
@@ -56,13 +64,10 @@ public class MainWindowViewModel : ViewModelBase
             var topLeftY = ToDouble(Input.TopLeftY, "Top Left Y param");
             var width = ToDouble(Input.Width, "Width");
             var height = ToDouble(Input.Height, "Height");
-            var color = Input.SelectedColorBrush.Color;
 
-            _viewHelper.AddRectangle(
-                _application.MainWindow,
-                ViewNames.RectanglesCanvas,
-                (topLeftX, topLeftY, width, height, color)
-            );
+            AddRectangle(topLeftX, topLeftY, width, height);
+
+            _viewHelper.ScrollConsole(_application.MainWindow, ViewNames.OutputConsole);
         }
         catch (Exception ex)
         {
@@ -76,7 +81,6 @@ public class MainWindowViewModel : ViewModelBase
         {
             var width = 100d;
             var height = 50d;
-            var color = Input.SelectedColorBrush.Color;
             var points = CreateStaticStartPoints();
             if (double.TryParse(Input.Width, out var w) && double.TryParse(Input.Height, out var h))
             {
@@ -84,17 +88,24 @@ public class MainWindowViewModel : ViewModelBase
             }
             for (int index = 0; index < points.Length; index++)
             {
-                _viewHelper.AddRectangle(
-                    _application.MainWindow,
-                    ViewNames.RectanglesCanvas,
-                    (points[index].X, points[index].Y, width, height, color)
-                );
+                AddRectangle(points[index].X, points[index].Y, width, height);
             }
+            _viewHelper.ScrollConsole(_application.MainWindow, ViewNames.OutputConsole);
         }
         catch (Exception ex)
         {
             _eventAggregator.GetEvent<ExceptionEvent>().Publish(ex);
         }
+    }
+
+    private void AddRectangle(double x, double y, double w, double h)
+    {
+        var rectangle = _viewHelper.AddRectangle(
+            _application.MainWindow,
+            ViewNames.RectanglesCanvas,
+            (x, y, w, h, Input.SelectedColorBrush.Color)
+        );
+        Outputs.Add(new OutputData(rectangle));
     }
 
     private void ClearCanvasCommandExecute()

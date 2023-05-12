@@ -4,13 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prism="http://prismlibrary.com/"
+        xmlns:m="clr-namespace:SaprTest.Models"
         xmlns:vm="clr-namespace:SaprTest.ViewModels"
         xmlns:core_utils="clr-namespace:SaprTest.Core.Utils;assembly=SaprTest.Core"
         mc:Ignorable="d"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="Sapr-Art Test"
         WindowStartupLocation="CenterScreen"
-        Width="800"
+        Width="950"
         Height="850"
         d:DataContext="{d:DesignInstance Type=vm:MainWindowViewModel}" >
     <Grid>
@@ -100,8 +101,20 @@
                                     VerticalAlignment="Center"
                                     Content="Add rectangle"
                                     Command="{Binding AddRectangleCommand}"/>
-                            <!---->
-                            <!---->
+                            <ListBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
+                                     x:Name="_output_console_"
+                                     VirtualizingPanel.ScrollUnit="Pixel"
+                                     VirtualizingPanel.VirtualizationMode="Recycling"
+                                     Margin="2"
+                                     ItemsSource="{Binding Outputs}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="m:OutputData">
+                                        <TextBlock VerticalAlignment="Center"
+                                                   Foreground="Green"
+                                                   Text="{Binding Message}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                             <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
                                     Margin="2"
                                     VerticalAlignment="Center"
