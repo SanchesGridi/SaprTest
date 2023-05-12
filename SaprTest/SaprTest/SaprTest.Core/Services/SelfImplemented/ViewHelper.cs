@@ -43,4 +43,13 @@ public sealed class ViewHelper
         };
         canvas.Children.Add(path);
     }
+
+    public void ClearCanvas(DependencyObject window, string canvasName)
+    {
+        var canvas = _viewProvider.GetView<Canvas>(window, canvasName);
+        if (canvas?.Children?.Count > 0)
+        {
+            canvas.Children.Clear();
+        }
+    }
 }

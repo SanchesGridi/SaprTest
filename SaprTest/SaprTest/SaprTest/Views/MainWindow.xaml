@@ -43,6 +43,8 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
@@ -98,6 +100,18 @@
                                     VerticalAlignment="Center"
                                     Content="Add rectangle"
                                     Command="{Binding AddRectangleCommand}"/>
+                            <!---->
+                            <!---->
+                            <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
+                                    Margin="2"
+                                    VerticalAlignment="Center"
+                                    Content="Add static rectangles"
+                                    Command="{Binding AddStaticRectanglesCommand}"/>
+                            <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
+                                    Margin="2"
+                                    VerticalAlignment="Center"
+                                    Content="Remove all"
+                                    Command="{Binding ClearCanvasCommand}"/>
                         </Grid>
                     </Grid>
                 </TabItem.Content>
