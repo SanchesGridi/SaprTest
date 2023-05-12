@@ -35,6 +35,7 @@ public class MainWindowViewModel : ViewModelBase
     public DelegateCommand AddRectangleCommand { get; }
     public DelegateCommand AddStaticRectanglesCommand { get; }
     public DelegateCommand ClearCanvasCommand { get; }
+    public DelegateCommand DrawOuterRectangleCommand { get; }
 
     public MainWindowViewModel(
         ViewHelper viewHelper,
@@ -47,6 +48,7 @@ public class MainWindowViewModel : ViewModelBase
         AddRectangleCommand = new DelegateCommand(AddRectangleCommandExecute);
         AddStaticRectanglesCommand = new DelegateCommand(AddStaticRectanglesCommandExecute);
         ClearCanvasCommand = new DelegateCommand(ClearCanvasCommandExecute);
+        DrawOuterRectangleCommand = new DelegateCommand(DrawOuterRectangleCommandExecute);
     }
 
     private void SelectColorCommandExecute()
@@ -98,6 +100,18 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
 
+    private void DrawOuterRectangleCommandExecute()
+    {
+        try
+        {
+            _viewHelper.DrawOuterRectangle(_application.MainWindow, ViewNames.RectanglesCanvas);
+        }
+        catch (Exception ex)
+        {
+            _eventAggregator.GetEvent<ExceptionEvent>().Publish(ex);
+        }
+    }
+
     private void AddRectangle(double x, double y, double w, double h)
     {
         var rectangle = _viewHelper.AddRectangle(
@@ -128,7 +142,7 @@ public class MainWindowViewModel : ViewModelBase
     private static (double X, double Y)[] CreateStaticStartPoints()
     {
         var currentX = 50d;
-        var currentY = 50d; 
+        var currentY = 50d;
         var points = new (double x, double y)[5];
         for (var index = 0; index < points.Length; index++)
         {
