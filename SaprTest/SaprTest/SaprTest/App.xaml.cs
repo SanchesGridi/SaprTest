@@ -3,6 +3,7 @@ using Prism.Modularity;
 using SaprTest.Core.Services.Implementations;
 using SaprTest.Core.Services.Interfaces;
 using SaprTest.Core.Services.SelfImplemented;
+using SaprTest.Core.Utils;
 using SaprTest.Modules.Exceptions;
 using SaprTest.ViewModels;
 using SaprTest.Views;
@@ -20,7 +21,7 @@ public partial class App
     protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
         containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
-
+        containerRegistry.RegisterDialog<ColorsDialogControl, ColorsDialogControlViewModel>(Dialogs.ColorsDialog);
         containerRegistry.RegisterSingleton<ISolidColorBrushDialog, SolidColorBrushDialog>();
         containerRegistry.RegisterSingleton<IViewProvider, ViewProvider>();
         containerRegistry.RegisterSingleton<ViewHelper>();

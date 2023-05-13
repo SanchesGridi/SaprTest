@@ -1,4 +1,5 @@
 ﻿using SaprTest.Core.Services.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,7 +46,7 @@ public sealed class ViewHelper
         return rectangle;
     }
 
-    public void DrawOuterRectangle(DependencyObject window, string canvasName)
+    public Rect? DrawOuterRectangle(DependencyObject window, string canvasName, List<Color> colors)
     {
         var canvas = _viewProvider.GetView<Canvas>(window, canvasName);
         if (canvas?.Children?.Count > 0)
@@ -58,8 +59,12 @@ public sealed class ViewHelper
             for (var index = 0; index < canvas.Children.Count; index++)
             {
                 var path = canvas.Children[index] as Path;
-                var geometry = path.Data as RectangleGeometry;
+                if (!(path.Fill is SolidColorBrush brush && colors.Any(x => x == brush.Color)))
+                {
+                    continue;
+                }
 
+                var geometry = path.Data as RectangleGeometry;
                 if (geometry.Rect.TopLeft.X < topLeftX)
                 {
                     topLeftX = geometry.Rect.TopLeft.X;
@@ -92,7 +97,9 @@ public sealed class ViewHelper
                 Data = new RectangleGeometry(rectangle)
             };
             canvas.Children.Add(outerPath);
+            return rectangle;
         }
+        return null;
     }
 
     public void ClearCanvas(DependencyObject window, string canvasName)

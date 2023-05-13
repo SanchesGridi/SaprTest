@@ -28,14 +28,14 @@
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Canvas Grid.Column="0"
-                                x:Name="_rectangles_canvas_">
-                            <Canvas.Children>
-                               <!--todo-->
-                            </Canvas.Children>
-                        </Canvas>
+                        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <Canvas x:Name="_rectangles_canvas_"
+                                    Width="5000"
+                                    Height="5000"/>
+                        </ScrollViewer>
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -52,72 +52,85 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
+                            <TextBlock Grid.Row="0" Grid.Column="0"
                                        Margin="2"
                                        HorizontalAlignment="Center"
-                                       Text="Top left point"/>
-                            <TextBlock Grid.Row="1" Grid.Column="0"
+                                       Text="Top Left X:"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1"
                                        Margin="2"
                                        HorizontalAlignment="Center"
-                                       Text="X:"/>
-                            <TextBlock Grid.Row="1" Grid.Column="1"
-                                       Margin="2"
-                                       HorizontalAlignment="Center"
-                                       Text="Y:"/>
-                            <TextBox Grid.Row="2" Grid.Column="0"
+                                       Text="Top Left Y:"/>
+                            <TextBox Grid.Row="1" Grid.Column="0"
                                      Margin="2"
                                      VerticalAlignment="Center"
                                      Text="{Binding Input.TopLeftX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBox Grid.Row="2" Grid.Column="1"
+                            <TextBox Grid.Row="1" Grid.Column="1"
                                      Margin="2"
                                      VerticalAlignment="Center"
                                      Text="{Binding Input.TopLeftY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBlock Grid.Row="3" Grid.Column="0"
+                            <TextBlock Grid.Row="2" Grid.Column="0"
                                        Margin="2"
                                        HorizontalAlignment="Center"
                                        Text="Height:"/>
-                            <TextBlock Grid.Row="3" Grid.Column="1"
+                            <TextBlock Grid.Row="2" Grid.Column="1"
                                        Margin="2"
                                        HorizontalAlignment="Center"
                                        Text="Width:"/>
-                            <TextBox Grid.Row="4" Grid.Column="0"
+                            <TextBox Grid.Row="3" Grid.Column="0"
                                      Margin="2"
                                      VerticalAlignment="Center"
                                      Text="{Binding Input.Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBox Grid.Row="4" Grid.Column="1"
+                            <TextBox Grid.Row="3" Grid.Column="1"
                                      Margin="2"
                                      VerticalAlignment="Center"
                                      Text="{Binding Input.Width, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <Border Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                            <TextBlock Grid.Row="4" Grid.Column="0"
+                                       Margin="2"
+                                       HorizontalAlignment="Center"
+                                       Text="Offset:"/>
+                            <TextBlock Grid.Row="4" Grid.Column="1"
+                                       Margin="2"
+                                       HorizontalAlignment="Center"
+                                       Text="Count:"/>
+                            <TextBox Grid.Row="5" Grid.Column="0"
+                                     Margin="2"
+                                     VerticalAlignment="Center"
+                                     Text="{Binding Input.Offset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Row="5" Grid.Column="1"
+                                     Margin="2"
+                                     VerticalAlignment="Center"
+                                     Text="{Binding Input.Count, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Border Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
                                     Margin="2"
                                     VerticalAlignment="Center"
                                     BorderThickness="2.5"
                                     CornerRadius="2.5"
+                                    d:BorderBrush="Green"
                                     BorderBrush="{Binding Input.SelectedColorBrush}">
                                 <Button Content="Color"
                                         Command="{Binding SelectColorCommand}"/>
                             </Border>
-                            <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
-                                    Margin="2"
-                                    VerticalAlignment="Center"
-                                    Content="Add rectangle"
-                                    Command="{Binding AddRectangleCommand}"/>
                             <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
                                     Margin="2"
                                     VerticalAlignment="Center"
-                                    Content="Add static rectangles"
-                                    Command="{Binding AddStaticRectanglesCommand}"/>
+                                    Content="Add rectangles"
+                                    Command="{Binding AddRectanglesCommand}"/>
                             <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
                                     Margin="2"
                                     VerticalAlignment="Center"
-                                    Content="Remove all"
+                                    Content="Remove rectangles"
                                     Command="{Binding ClearCanvasCommand}"/>
                             <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
                                     Margin="2"
                                     VerticalAlignment="Center"
                                     Content="Draw outer rectangle"
                                     Command="{Binding DrawOuterRectangleCommand}"/>
-                            <ListBox Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2"
+                            <Button Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2"
+                                    Margin="2"
+                                    VerticalAlignment="Center"
+                                    Content="Choose colors"
+                                    Command="{Binding ChooseColorsCommand}"/>
+                            <ListBox Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2"
                                      x:Name="_output_console_"
                                      VirtualizingPanel.ScrollUnit="Pixel"
                                      VirtualizingPanel.VirtualizationMode="Recycling"

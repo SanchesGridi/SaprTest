@@ -14,12 +14,11 @@ public class OutputData : BindableBase
         set => SetProperty(ref _message, value);
     }
 
-    public OutputData(Rect r) => BuildOutputMessage(r);
-
-    private void BuildOutputMessage(Rect r)
+    public OutputData(Rect r, bool outer = false)
     {
         Message = new StringBuilder()
             .AppendLine($"New rectangle: {DateTime.Now:dd:MM:yy -- HH:mm:ss}")
+            .AppendLine($"Rectangle type: [{(outer ? "OUTER" : "INNER")}]")
             .AppendLine($"P1: ({r.TopLeft.X},{r.TopLeft.Y})")
             .AppendLine($"P2: ({r.BottomLeft.X},{r.BottomLeft.Y})")
             .AppendLine($"P3: ({r.BottomRight.X},{r.BottomRight.Y})")
