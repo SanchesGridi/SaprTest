@@ -1,13 +1,14 @@
 using SaprTest.Models;
+using SaprTest.Tests.Models.Base;
 using System.Windows.Media;
 using Xunit;
 
 namespace SaprTest.Tests.Models;
 
-public class InputDataTest
+public class InputDataUnitTest : ModelUnitTest
 {
     [Fact]
-    public void AllProperties_PropertyChangedEvent_Called()
+    public override void AllProperties_PropertyChangedEvent_Called()
     {
         var target = new InputData();
         var value = "1000";
@@ -23,9 +24,11 @@ public class InputDataTest
     [Fact]
     public void AddColors_RepeatedColors_Ignores()
     {
-        var target = new InputData();
+        var target = new InputData
+        {
+            SelectedColorBrush = new SolidColorBrush(Colors.Black)
+        };
 
-        target.SelectedColorBrush = new SolidColorBrush(Colors.Black);
         for (int i = 0; i < 10; i++)
         {
             target.AddColor();

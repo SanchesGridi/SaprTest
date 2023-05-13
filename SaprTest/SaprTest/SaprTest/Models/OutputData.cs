@@ -14,7 +14,7 @@ public class OutputData : BindableBase
         set => SetProperty(ref _message, value);
     }
 
-    public OutputData(Rect r, bool outer = false)
+    public OutputData(Rect r, bool outer)
     {
         Message = new StringBuilder()
             .AppendLine($"New rectangle: {DateTime.Now:dd:MM:yy -- HH:mm:ss}")

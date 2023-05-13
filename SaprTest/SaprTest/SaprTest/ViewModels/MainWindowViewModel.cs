@@ -177,7 +177,7 @@ public class MainWindowViewModel : ViewModelBase
             ViewNames.RectanglesCanvas,
             (x, y, w, h, Input.SelectedColorBrush.Color)
         );
-        Outputs.Add(new OutputData(rectangle));
+        Outputs.Add(new OutputData(rectangle, false));
     }
 
     private static (double X, double Y)[] CreateStartPoints(
