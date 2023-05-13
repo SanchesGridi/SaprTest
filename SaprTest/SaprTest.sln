@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaprTest", "SaprTest\SaprTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaprTest.Core", "SaprTest\SaprTest.Core\SaprTest.Core.csproj", "{A60B71E0-A514-450C-8358-EA74AF4D8B9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaprTest.Modules.Exceptions", "SaprTest\Modules\SaprTest.Modules.Exceptions\SaprTest.Modules.Exceptions.csproj", "{3229A49C-603C-47A9-8AA6-0C9DF44942D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaprTest.Modules.Exceptions", "SaprTest\Modules\SaprTest.Modules.Exceptions\SaprTest.Modules.Exceptions.csproj", "{3229A49C-603C-47A9-8AA6-0C9DF44942D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaprTest.Tests", "SaprTest\Tests\SaprTest.Tests\SaprTest.Tests.csproj", "{1F488D07-796A-46FC-BE56-8118BB32DFB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,12 +33,17 @@ Global
 		{3229A49C-603C-47A9-8AA6-0C9DF44942D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3229A49C-603C-47A9-8AA6-0C9DF44942D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3229A49C-603C-47A9-8AA6-0C9DF44942D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F488D07-796A-46FC-BE56-8118BB32DFB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F488D07-796A-46FC-BE56-8118BB32DFB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F488D07-796A-46FC-BE56-8118BB32DFB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F488D07-796A-46FC-BE56-8118BB32DFB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3229A49C-603C-47A9-8AA6-0C9DF44942D2} = {85AC503C-34DB-4B0F-90D4-DCD0C6DF0A1C}
+		{1F488D07-796A-46FC-BE56-8118BB32DFB9} = {35A5B1F5-B76B-4877-A70A-57D5D31DE7BB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D534CCE1-17B0-43AC-9C01-A8DF98A4370D}
