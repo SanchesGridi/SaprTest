@@ -4,6 +4,7 @@ using SaprTest.Core.Services.Implementations;
 using SaprTest.Core.Services.Interfaces;
 using SaprTest.Core.Utils;
 using SaprTest.Modules.Exceptions;
+using SaprTest.Modules.SecondTask;
 using SaprTest.ViewModels;
 using SaprTest.Views;
 using System.Windows;
@@ -30,5 +31,6 @@ public partial class App
         base.ConfigureModuleCatalog(moduleCatalog);
 
         moduleCatalog.AddModule<ExceptionsModule>();
+        moduleCatalog.AddModule<SecondTaskModule>();
     }
 }

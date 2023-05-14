@@ -9,5 +9,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Modules\SaprTest.Modules.Exceptions\SaprTest.Modules.Exceptions.csproj" />
+    <ProjectReference Include="..\Modules\SaprTest.Modules.SecondTask\SaprTest.Modules.SecondTask.csproj" />
   </ItemGroup>
 </Project>

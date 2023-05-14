@@ -150,9 +150,9 @@
             </TabItem>
             <TabItem Header="Second Task">
                 <TabItem.Content>
-                    <Grid>
-
-                    </Grid>
+                    <ScrollViewer>
+                        <ContentControl prism:RegionManager.RegionName="{x:Static core_utils:RegionNames.SecondTaskRegion}"/>
+                    </ScrollViewer>
                 </TabItem.Content>
             </TabItem>
         </TabControl>
