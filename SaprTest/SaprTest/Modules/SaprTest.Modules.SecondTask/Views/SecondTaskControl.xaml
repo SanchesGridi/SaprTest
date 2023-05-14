@@ -7,11 +7,22 @@
              xmlns:vm="clr-namespace:SaprTest.Modules.SecondTask.ViewModels"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d"
-             d:DesignHeight="300"
-             d:DesignWidth="300"
+             d:DesignHeight="580"
+             d:DesignWidth="930"
              d:Background="White"
              d:DataContext="{d:DesignInstance Type=vm:SecondTaskControlViewModel}">
-    <Grid>
-        
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Canvas x:Name="_second_task_canvas_"
+                    Width="5000"
+                    Height="5000"/>
+        </ScrollViewer>
+        <Grid Grid.Column="0">
+            
+        </Grid>
     </Grid>
 </UserControl>
