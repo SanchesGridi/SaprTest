@@ -5,7 +5,6 @@ using SaprTest.Core.Events;
 using SaprTest.Core.Exceptions;
 using SaprTest.Core.Mvvm.ViewModels;
 using SaprTest.Core.Services.Interfaces;
-using SaprTest.Core.Services.SelfImplemented;
 using SaprTest.Core.Utils;
 using SaprTest.Models;
 using System;
@@ -43,10 +42,10 @@ public class MainWindowViewModel : ViewModelBase
     public DelegateCommand ChooseColorsCommand { get; }
 
     public MainWindowViewModel(
-        ViewHelper viewHelper,
+        IViewHelperService viewHelperService,
         IEventAggregator eventAggregator,
         IDialogService dialogService,
-        ISolidColorBrushDialog brushDialog) : base(viewHelper, eventAggregator)
+        ISolidColorBrushDialog brushDialog) : base(viewHelperService, eventAggregator)
     {
         _dialogService = dialogService;
         _brushDialog = brushDialog;
@@ -97,7 +96,7 @@ public class MainWindowViewModel : ViewModelBase
                 AddRectangle(points[index].X, points[index].Y, width, height);
             }
             Input.AddColor();
-            _viewHelper.ScrollConsole(_application.MainWindow, ViewNames.OutputConsole);
+            _viewHelperService.ScrollConsole(_application.MainWindow, ViewNames.OutputConsole);
         }
         catch (Exception ex)
         {
@@ -107,7 +106,7 @@ public class MainWindowViewModel : ViewModelBase
 
     private void ClearCanvasCommandExecute()
     {
-        _viewHelper.ClearCanvas(_application.MainWindow, ViewNames.RectanglesCanvas);
+        _viewHelperService.ClearCanvas(_application.MainWindow, ViewNames.RectanglesCanvas);
         Input.ClearColors();
     }
 
@@ -125,13 +124,13 @@ public class MainWindowViewModel : ViewModelBase
             }
             if (appliedColors.Count > 0)
             {
-                var rectangle = _viewHelper.DrawOuterRectangle(
+                var rectangle = _viewHelperService.DrawOuterRectangle(
                     _application.MainWindow, ViewNames.RectanglesCanvas, appliedColors
                 );
                 if (rectangle != null)
                 {
                     Outputs.Add(new(rectangle.Value, true));
-                    _viewHelper.ScrollConsole(_application.MainWindow, ViewNames.OutputConsole);
+                    _viewHelperService.ScrollConsole(_application.MainWindow, ViewNames.OutputConsole);
                 }
             }
             else
@@ -172,8 +171,8 @@ public class MainWindowViewModel : ViewModelBase
 
     private void AddRectangle(double x, double y, double w, double h)
     {
-        var rectangle = _viewHelper.AddRectangle(
-            _application.MainWindow,
+        var rectangle = _viewHelperService.AddRectangle(
+            _application?.MainWindow,
             ViewNames.RectanglesCanvas,
             (x, y, w, h, Input.SelectedColorBrush.Color)
         );

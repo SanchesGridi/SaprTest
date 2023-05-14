@@ -2,7 +2,6 @@
 using Prism.Modularity;
 using SaprTest.Core.Services.Implementations;
 using SaprTest.Core.Services.Interfaces;
-using SaprTest.Core.Services.SelfImplemented;
 using SaprTest.Core.Utils;
 using SaprTest.Modules.Exceptions;
 using SaprTest.ViewModels;
@@ -23,8 +22,7 @@ public partial class App
         containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
         containerRegistry.RegisterDialog<ColorsDialogControl, ColorsDialogControlViewModel>(Dialogs.ColorsDialog);
         containerRegistry.RegisterSingleton<ISolidColorBrushDialog, SolidColorBrushDialog>();
-        containerRegistry.RegisterSingleton<IViewProvider, ViewProvider>();
-        containerRegistry.RegisterSingleton<ViewHelper>();
+        containerRegistry.RegisterSingleton<IViewHelperService, ViewHelperService>();
     }
 
     protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)

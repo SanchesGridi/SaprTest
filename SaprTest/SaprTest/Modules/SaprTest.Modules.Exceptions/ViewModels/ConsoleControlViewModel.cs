@@ -2,7 +2,7 @@
 using SaprTest.Core.Events;
 using SaprTest.Core.Exceptions;
 using SaprTest.Core.Mvvm.ViewModels;
-using SaprTest.Core.Services.SelfImplemented;
+using SaprTest.Core.Services.Interfaces;
 using SaprTest.Core.Utils;
 using SaprTest.Modules.Exceptions.Models;
 using System.Collections.ObjectModel;
@@ -20,8 +20,8 @@ public class ConsoleControlViewModel : ViewModelBase
     }
 
     public ConsoleControlViewModel(
-        ViewHelper viewHelper,
-        IEventAggregator eventAggregator) : base(viewHelper, eventAggregator)
+        IViewHelperService viewHelperService,
+        IEventAggregator eventAggregator) : base(viewHelperService, eventAggregator)
     {
         _eventAggregator.GetEvent<ExceptionEvent>().Subscribe(async ex =>
         {
@@ -34,7 +34,7 @@ public class ConsoleControlViewModel : ViewModelBase
             await DispatchAsync(() =>
             {
                 Exceptions.AddRange(entry.GetInners());
-                _viewHelper.ScrollConsole(_application.MainWindow, ViewNames.ExceptionsConsole);
+                _viewHelperService.ScrollConsole(_application.MainWindow, ViewNames.ExceptionsConsole);
             });
         });
     }

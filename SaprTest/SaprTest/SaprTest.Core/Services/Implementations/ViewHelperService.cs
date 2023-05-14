@@ -1,4 +1,5 @@
 ﻿using SaprTest.Core.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -6,20 +7,13 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace SaprTest.Core.Services.SelfImplemented;
+namespace SaprTest.Core.Services.Implementations;
 
-public sealed class ViewHelper
+public class ViewHelperService : IViewHelperService
 {
-    private readonly IViewProvider _viewProvider;
-
-    public ViewHelper(IViewProvider viewProvider)
-    {
-        _viewProvider = viewProvider;
-    }
-
     public void ScrollConsole(DependencyObject window, string consoleName)
     {
-        var console = _viewProvider.GetView<ListBox>(window, consoleName);
+        var console = GetView<ListBox>(window, consoleName);
         var lastIndex = console.Items.Count - 1;
         var lastChild = console.Items[lastIndex];
 
@@ -29,7 +23,7 @@ public sealed class ViewHelper
     public Rect AddRectangle(DependencyObject window, string canvasName,
         (double X, double Y, double Width, double Height, Color Color) settings)
     {
-        var canvas = _viewProvider.GetView<Canvas>(window, canvasName);
+        var canvas = GetView<Canvas>(window, canvasName);
         var rectangle = new Rect
         {
             Location = new Point(settings.X, settings.Y),
@@ -48,7 +42,7 @@ public sealed class ViewHelper
 
     public Rect? DrawOuterRectangle(DependencyObject window, string canvasName, List<Color> colors)
     {
-        var canvas = _viewProvider.GetView<Canvas>(window, canvasName);
+        var canvas = GetView<Canvas>(window, canvasName);
         if (canvas?.Children?.Count > 0)
         {
             var topLeftX = double.MaxValue;
@@ -104,10 +98,23 @@ public sealed class ViewHelper
 
     public void ClearCanvas(DependencyObject window, string canvasName)
     {
-        var canvas = _viewProvider.GetView<Canvas>(window, canvasName);
+        var canvas = GetView<Canvas>(window, canvasName);
         if (canvas?.Children?.Count > 0)
         {
             canvas.Children.Clear();
         }
+    }
+
+    private static TView GetView<TView>(DependencyObject rootView, string viewName) where TView : DependencyObject
+    {
+        if (rootView == null)
+        {
+            throw new ArgumentNullException(nameof(rootView));
+        }
+        if (viewName == null)
+        {
+            throw new ArgumentNullException(nameof(viewName));
+        }
+        return (TView)LogicalTreeHelper.FindLogicalNode(rootView, viewName);
     }
 }
