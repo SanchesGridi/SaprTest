@@ -1,4 +1,5 @@
 ﻿using SaprTest.Core.Services.Interfaces;
+using SaprTest.Core.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,8 +21,7 @@ public class ViewHelperService : IViewHelperService
         console.ScrollIntoView(lastChild);
     }
 
-    public Rect AddRectangle(DependencyObject window, string canvasName,
-        (double X, double Y, double Width, double Height, Color Color) settings)
+    public Rect AddRectangle(DependencyObject window, string canvasName, RectangleSettings settings)
     {
         var canvas = GetView<Canvas>(window, canvasName);
         var rectangle = new Rect

@@ -5,6 +5,7 @@ using SaprTest.Core.Events;
 using SaprTest.Core.Exceptions;
 using SaprTest.Core.Mvvm.ViewModels;
 using SaprTest.Core.Services.Interfaces;
+using SaprTest.Core.Settings;
 using SaprTest.Core.Utils;
 using SaprTest.Models;
 using System;
@@ -96,7 +97,7 @@ public class MainWindowViewModel : ViewModelBase
                 AddRectangle(points[index].X, points[index].Y, width, height);
             }
             Input.AddColor();
-            _viewHelperService.ScrollConsole(_application.MainWindow, ViewNames.OutputConsole);
+            _viewHelperService.ScrollConsole(_application?.MainWindow, ViewNames.OutputConsole);
         }
         catch (Exception ex)
         {
@@ -106,7 +107,7 @@ public class MainWindowViewModel : ViewModelBase
 
     private void ClearCanvasCommandExecute()
     {
-        _viewHelperService.ClearCanvas(_application.MainWindow, ViewNames.RectanglesCanvas);
+        _viewHelperService.ClearCanvas(_application?.MainWindow, ViewNames.RectanglesCanvas);
         Input.ClearColors();
     }
 
@@ -125,12 +126,12 @@ public class MainWindowViewModel : ViewModelBase
             if (appliedColors.Count > 0)
             {
                 var rectangle = _viewHelperService.DrawOuterRectangle(
-                    _application.MainWindow, ViewNames.RectanglesCanvas, appliedColors
+                    _application?.MainWindow, ViewNames.RectanglesCanvas, appliedColors
                 );
                 if (rectangle != null)
                 {
                     Outputs.Add(new(rectangle.Value, true));
-                    _viewHelperService.ScrollConsole(_application.MainWindow, ViewNames.OutputConsole);
+                    _viewHelperService.ScrollConsole(_application?.MainWindow, ViewNames.OutputConsole);
                 }
             }
             else
@@ -148,20 +149,12 @@ public class MainWindowViewModel : ViewModelBase
     {
         try
         {
-            var colorsKey = Keys.ColorsKey;
             var parameters = new DialogParameters
             {
                 { Keys.TitleKey, "Choose Colors" },
-                { colorsKey, Input.GetColors() }
+                { Keys.ColorsKey, Input.GetColors() }
             };
-            _dialogService.ShowDialog(Dialogs.ColorsDialog, parameters, x =>
-            {
-                if (x.Result == ButtonResult.OK)
-                {
-                    var colors = x.Parameters.GetValue<(Color, bool)[]>(colorsKey);
-                    Input.SetColors(colors);
-                }
-            });
+            _dialogService.ShowDialog(Dialogs.ColorsDialog, parameters, ChooseColorsDialogCallback);
         }
         catch (Exception ex)
         {
@@ -174,9 +167,18 @@ public class MainWindowViewModel : ViewModelBase
         var rectangle = _viewHelperService.AddRectangle(
             _application?.MainWindow,
             ViewNames.RectanglesCanvas,
-            (x, y, w, h, Input.SelectedColorBrush.Color)
+            new RectangleSettings(x, y, w, h, Input.SelectedColorBrush.Color)
         );
         Outputs.Add(new OutputData(rectangle, false));
+    }
+
+    private void ChooseColorsDialogCallback(IDialogResult x)
+    {
+        if (x.Result == ButtonResult.OK)
+        {
+            var colors = x.Parameters.GetValue<(Color, bool)[]>(Keys.ColorsKey);
+            Input.SetColors(colors);
+        }
     }
 
     private static (double X, double Y)[] CreateStartPoints(
