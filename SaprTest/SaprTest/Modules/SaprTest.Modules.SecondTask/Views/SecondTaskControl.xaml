@@ -16,10 +16,69 @@
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Column="0"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Auto">
             <Canvas x:Name="_second_task_canvas_"
                     Width="5000"
-                    Height="5000"/>
+                    Height="5000">
+                <!--
+                    Q:
+                    P1P2 = P2.Y - P1.Y = 400
+                    P2P3 = P3.X - P2.X = 550
+                    P3P4 = P3.Y - P4.Y = 450
+                    P4P1 = sqrt[b^2 + c^2 - 2bc * cos(A)] =
+                    sqrt[(P4.X - P1.X)^2 + (P1.Y - P4.Y)^2 - (2bc * cos(90))] =
+                    sqrt[550^2 + 50^2] = 552.26805085936303871054569216722 ≈ 552.268
+                -->
+                <Path Canvas.ZIndex="5"
+                      Stroke="Black"
+                      StrokeDashArray="5,5">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure IsClosed="True" StartPoint="50,100"> <!--P1(task.P3)-->
+                                <LineSegment Point="50,500"/> <!--P2(task.P1)-->
+                                <LineSegment Point="600,500"/> <!--P3(task.P2)-->
+                                <LineSegment Point="600,50"/> <!--P4(task.P4)-->
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <!--
+                    R1:
+                    Width = Q.P3.X - Q.P2.X = 550
+                    Height = 60, H2 = Height / 2 = 30
+                    TopLeftPoint(P1) = (X = Q.P2.X = 50, Y = Q.P2.Y - H2 = 470)
+                -->
+                <Path Canvas.ZIndex="0"
+                      Opacity="0.75"
+                      Fill="Blue">
+                    <Path.Data>
+                        <RectangleGeometry>
+                            <RectangleGeometry.Rect>
+                                <Rect Location="50,470"
+                                      Size="550,60"/> <!--Location(X,Y), Size(W,H)-->
+                            </RectangleGeometry.Rect>
+                        </RectangleGeometry>
+                    </Path.Data>
+                </Path>
+                <!--
+                    R2:
+                    Width = Q.P4P1 ≈ 552.268
+                    Height = 60, H2 = Height / 2 = 30
+                -->
+                <Path Canvas.ZIndex="0"
+                      Opacity="0.75"
+                      Fill="Blue">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure>
+                                
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+            </Canvas>
         </ScrollViewer>
         <Grid Grid.Column="0">
             
