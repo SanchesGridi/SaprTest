@@ -20,6 +20,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TabControl Grid.Row="0"
+                    SelectedIndex="1"
                     TabStripPlacement="Bottom">
             <TabItem Header="First Task">
                 <TabItem.Content>

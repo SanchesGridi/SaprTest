@@ -45,6 +45,22 @@
                     </Path.Data>
                 </Path>
                 <!--
+                    vertical:
+                    P1(X: Q.P2.X + ((Q.P3.X - Q.P2.X) / 2) = 325, Y: Q.P2.Y = 500)
+                    P2(X: this.P1.x = 325, Y: 0) (todo: search right this.P2.Y)
+                -->
+                <Path Canvas.ZIndex="5"
+                      Stroke="Black"
+                      StrokeDashArray="5,5">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure IsClosed="False" StartPoint="325,500"> <!--P1-->
+                                <LineSegment Point="325,0"/> <!--P2-->
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <!--
                     R1:
                     Width = Q.P3.X - Q.P2.X = 550
                     Height = 60, H2 = Height / 2 = 30
@@ -63,17 +79,23 @@
                     </Path.Data>
                 </Path>
                 <!--
-                    R2:
+                    R2: (todo: rectangle with rotate transforms)
                     Width = Q.P4P1 ≈ 552.268
                     Height = 60, H2 = Height / 2 = 30
+                    P1(X: Q.P1.X = 50, Y: Q.P1,Y - h2 = 70)
+                    P2(X: Q.P1.X = 50, Y: Q.P1,Y + h2 = 130)
+                    P3(X: Q.P4.X = 600, Y: Q.P4.Y + h2 = 80)
+                    P4(X: Q.P4.X = 600, Y: Q.P4.Y - h2 = 20)
                 -->
                 <Path Canvas.ZIndex="0"
                       Opacity="0.75"
                       Fill="Blue">
                     <Path.Data>
                         <PathGeometry>
-                            <PathFigure>
-                                
+                            <PathFigure IsClosed="True" StartPoint="50,70">
+                                <LineSegment Point="50,130"/>
+                                <LineSegment Point="600,80"/>
+                                <LineSegment Point="600,20"/>
                             </PathFigure>
                         </PathGeometry>
                     </Path.Data>
