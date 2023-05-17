@@ -47,7 +47,7 @@
                 <!--
                     vertical:
                     P1(X: Q.P2.X + ((Q.P3.X - Q.P2.X) / 2) = 325, Y: Q.P2.Y = 500)
-                    P2(X: this.P1.x = 325, Y: 0) (todo: search right this.P2.Y)
+                    P2(X: this.P1.x = 325, Y: 70) (todo: search right this.P2.Y)
                 -->
                 <Path Canvas.ZIndex="5"
                       Stroke="Black"
@@ -55,7 +55,7 @@
                     <Path.Data>
                         <PathGeometry>
                             <PathFigure IsClosed="False" StartPoint="325,500"> <!--P1-->
-                                <LineSegment Point="325,0"/> <!--P2-->
+                                <LineSegment Point="325,70"/> <!--P2-->
                             </PathFigure>
                         </PathGeometry>
                     </Path.Data>
